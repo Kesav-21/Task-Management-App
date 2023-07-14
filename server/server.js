@@ -1,8 +1,33 @@
-const express=require('express');
 require('dotenv').config();
-const connectDB=require('./db/database');
+
+const express=require('express');
+const taskRoutes=require('./routes/tasks')
+const mongoose=require('mongoose');
+const db=require('./db/database')
+
+//express app
 const app=express();
-var cors=require('cors');
-const authRouter=require('./routes');
-app.use(cors());
+
+//middleware
 app.use(express.json());
+
+//logger for routes
+app.use((req,res,next)=>{
+    console.log(req.path,req.method)
+    next()
+})
+
+//routes
+app.use('/api/tasks',taskRoutes)
+
+//mongodb and server connection
+db(process.env.MONGO_URI)
+    .then(()=>{
+        app.listen(process.env.PORT,()=>{
+            console.log("Hello server")
+        })
+    })
+    .catch((error)=>{
+        console.log(error)
+    })
+
