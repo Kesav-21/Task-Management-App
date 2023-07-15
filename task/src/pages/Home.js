@@ -1,34 +1,32 @@
-import React from 'react'
-import { useEffect,useState } from 'react'
-import TaskDetails from '../components/TaskDetails'
-import TaskForm from '../components/TaskForm'
+import React from "react";
+import { useEffect, useState } from "react";
+import { useTasksContext } from "../hooks/useTasksContext";
+import TaskDetails from "../components/TaskDetails";
+import TaskForm from "../components/TaskForm";
 
 const Home = () => {
-    const [tasks,setTasks]=useState(null)
+  const { tasks, dispatch } = useTasksContext();
 
-    useEffect(()=>{
-        const fetchTasks=async()=>{
-            const response=await fetch('/api/tasks')
-            const json=await response.json()
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const response = await fetch("/api/tasks");
+      const json = await response.json();
 
-            if(response.ok){
-                setTasks(json)
-            }
-        }
-        fetchTasks()
-    },[])
+      if (response.ok) {
+        dispatch({ type: "SET_TASKS", payload: json });
+      }
+    };
+    fetchTasks();
+  }, []);
   return (
-    <div className='home'>
-        <div className='tasks'>
-            {
-                tasks && tasks.map((task)=>(
-                    <TaskDetails key={task._id} task={task}/>
-                ))
-            }
-            <TaskForm/>
-        </div>
+    <div className="home">
+      <div className="tasks">
+        {tasks &&
+          tasks.map((task) => <TaskDetails key={task._id} task={task} />)}
+        <TaskForm />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
