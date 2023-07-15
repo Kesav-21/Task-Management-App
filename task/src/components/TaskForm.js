@@ -9,6 +9,7 @@ const TaskForm = () => {
   const [priority, setPriority] = useState("");
   const [label, setLabel] = useState("");
   const [error, setError] = useState(null);
+  const [emptyFields,setEmptyFields]=useState([])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +25,8 @@ const TaskForm = () => {
     const json = await response.json();
 
     if (!response.ok) {
-      setError(json.error);
+      setError(json.error)
+      setEmptyFields(json.emptyFields)
     }
     if (response.ok) {
       setTitle("");
@@ -32,6 +34,7 @@ const TaskForm = () => {
       setPriority("");
       setLabel("");
       setError(null);
+      setEmptyFields([])
       console.log("new task added", json);
       dispatch({ type: "CREATE_TASK", payload: json });
     }
@@ -44,20 +47,28 @@ const TaskForm = () => {
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
+        className={emptyFields.includes('title')?'error':''}
       />
       <label>Due Date:</label>
-      <input type="date" onChange={(e) => setDue(e.target.value)} value={due} />
+      <input
+       type="date"
+       onChange={(e) => setDue(e.target.value)}
+       value={due}
+       className={emptyFields.includes('due')?'error':''}
+       />
       <label>Task Priority:</label>
       <input
         type="text"
         onChange={(e) => setPriority(e.target.value)}
         value={priority}
+        className={emptyFields.includes('priority')?'error':''}
       />
       <label>Task Labels:</label>
       <input
         type="text"
         onChange={(e) => setLabel(e.target.value)}
         value={label}
+        className={emptyFields.includes('label')?'error':''}
       />
       <button>Add Task</button>
       {error && <div>{error}</div>}

@@ -28,6 +28,25 @@ const getTask=async(req,res)=>{
 const createTask=async(req,res)=>{
     const {title,due,priority,label}=req.body
 
+    let emptyFields=[]
+
+    if(!title){
+        emptyFields.push('title')
+    }
+    if(!due){
+        emptyFields.push('due')
+    }
+    if(!priority){
+        emptyFields.push('priority')
+    }
+    if(!label){
+        emptyFields.push('label')
+    }
+
+    if(emptyFields.length>0){
+        return res.status(400).json({error:'Please fill in all the fields',emptyFields})
+    }
+
     try{
         const task=await Task.create({title,due,priority,label})
         res.status(200).json(task)

@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useTasksContext } from "../hooks/useTasksContext";
 import TaskDetails from "../components/TaskDetails";
 import TaskForm from "../components/TaskForm";
@@ -17,7 +17,7 @@ const Home = () => {
       }
     };
     fetchTasks();
-  }, []);
+  }, [dispatch]);
   return (
     <div className="home">
       <div className="tasks">
