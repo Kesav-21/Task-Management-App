@@ -18,6 +18,10 @@ const taskSchema=new Schema({
     label:{
         type:String,
         requried:true
+    },
+    user_id:{
+        type:String,
+        required:true
     }
 },{timestamps:true})
 
