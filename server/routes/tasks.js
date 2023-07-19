@@ -5,8 +5,13 @@ const {createTask,
     deleteTask,
     updateTask}=require('../controllers/taskController')
 
+    const requireAuth=require('../middleware/requireAuth')
+
 
 const router=express.Router()
+
+
+router.use(requireAuth)
 
 // Get all tasks
 router.get('/',getTasks)
