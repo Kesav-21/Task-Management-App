@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { useTasksContext } from "../hooks/useTasksContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const TaskForm = () => {
+  const {user}=useAuthContext();
   const { dispatch } = useTasksContext();
   const [title, setTitle] = useState("");
   const [due, setDue] = useState("");
@@ -13,6 +15,11 @@ const TaskForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if(!user){
+      setError('You must be logged in')
+      return
+    }
     const task = { title, due, priority, label };
 
     const response = await fetch("/api/tasks", {
@@ -20,6 +27,7 @@ const TaskForm = () => {
       body: JSON.stringify(task),
       headers: {
         "Content-Type": "application/json",
+        'Authorization':`Bearer ${user.token}`
       },
     });
     const json = await response.json();

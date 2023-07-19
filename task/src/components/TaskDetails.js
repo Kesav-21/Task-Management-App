@@ -1,12 +1,20 @@
 import React from 'react'
 import { useTasksContext } from '../hooks/useTasksContext'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const TaskDetails = ({task}) => {
   const {dispatch}=useTasksContext()
+  const {user}=useAuthContext()
 
   const handleClick=async()=>{
+    if(!user){
+      return
+    }
     const response=await fetch('/api/tasks/'+task._id,{
-      method:'DELETE'
+      method:'DELETE',
+      headers:{
+        'Authorization':`Bearer ${user.token}`
+      }
     })
     const json=await response.json()
 
