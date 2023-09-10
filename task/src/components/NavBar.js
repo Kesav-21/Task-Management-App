@@ -15,12 +15,12 @@ const NavBar = () => {
     <header>
         <div className='header-container'>
             <Link to='/'>
-                <h1>Task Management App</h1>
+                <h1 className='text-3xl font-bold underline'>Task Management App</h1>
             </Link>
             <nav>
               {user && (<div>
                 <span>{user.email}</span>
-                <button onClick={handleClick}>LOGOUT</button>
+                <button onClick={handleClick} className='text-3xl font-bold underline'>LOGOUT</button>
               </div>)}
               <div>
                 <Link to='/login'>Login</Link>
