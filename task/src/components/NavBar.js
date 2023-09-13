@@ -12,18 +12,18 @@ const NavBar = () => {
   }
 
   return (
-    <header>
-        <div className='header-container'>
+    <header className='p-4 bg-gray-400'>
+        <div className='flex items-center w-full justify-between'>
             <Link to='/'>
                 <h1 className='text-3xl font-bold underline'>Task Management App</h1>
             </Link>
-            <nav>
+            <nav className='flex items-center justify-between'>
               {user && (<div>
                 <span>{user.email}</span>
                 <button onClick={handleClick} className='text-3xl font-bold underline'>LOGOUT</button>
               </div>)}
-              <div>
-                <Link to='/login'>Login</Link>
+              <div >
+                <Link to='/login' className='mx-8'>Login</Link>
                 <Link to='/register'>Register</Link>
               </div>
             </nav>
