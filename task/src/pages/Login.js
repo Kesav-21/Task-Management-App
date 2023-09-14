@@ -29,7 +29,7 @@ const Login = () => {
         />
         </div>
         <div className='flex flex-col w-2/4 mx-auto my-5'>
-        <button disabled={isLoading} className='p-3 mx-auto w-3/4 rounded-xl bg-amber-200 hover:bg-amber-500 mb-3'>Login</button>
+        <button disabled={isLoading} className='p-3 mx-auto w-3/4 rounded-xl bg-amber-200 hover:bg-amber-500 mb-3 font-bold'>Login</button>
         {error && <div className='text-red-700 text-center font-semibold'>*{error}</div>}
         </div>
     </form>

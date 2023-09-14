@@ -29,9 +29,10 @@ const Home = () => {
   }, [dispatch,user]);
   return (
     <div className="home">
-      <div className="tasks">
-        {tasks &&
-          tasks.map((task) => <TaskDetails key={task._id} task={task} />)}
+      <div className="flex justify-evenly w-full mt-10">
+        <div className="flex flex-col w-6/12">
+        {tasks ? tasks.map((task) => <TaskDetails key={task._id} task={task} />):<span>There are no Tasks Currently.</span>}
+          </div>
         <TaskForm />
       </div>
     </div>

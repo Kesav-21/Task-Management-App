@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTasksContext } from '../hooks/useTasksContext'
 import { useAuthContext } from '../hooks/useAuthContext'
+import Delete from '../assets/images/delete.png'
 
 const TaskDetails = ({task}) => {
   const {dispatch}=useTasksContext()
@@ -23,12 +24,15 @@ const TaskDetails = ({task}) => {
     }
   }
   return (
-    <div>
-        <h4>{task.title}</h4>
-        <p>{task.due}</p>
+    <div className='w-full my-2 bg-slate-400 rounded-md p-4 shadow-lg '>
+      <div className='flex justify-between'>
+        <h4 className='font-bold'>{task.title}</h4>
+        <span onClick={handleClick} className='relative '><img src={Delete} width={25} height={25}/></span>
+        </div>
+        <p className='font-medium'>{task.due}</p>
         <p>{task.priority}</p>
         <p>{task.label}</p>
-        <span onClick={handleClick}>Delete</span>
+        
     </div>
   )
 }
