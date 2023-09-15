@@ -3,6 +3,7 @@ import { useTasksContext } from '../hooks/useTasksContext'
 import { useAuthContext } from '../hooks/useAuthContext'
 import Delete from '../assets/images/delete.png'
 
+
 const TaskDetails = ({task}) => {
   const {dispatch}=useTasksContext()
   const {user}=useAuthContext()
